@@ -12,12 +12,21 @@ public class SpamManager : MonoBehaviour
     private float spawnPosY = 20;
 
     private float startDelay = 2;
-    private float spawnIntervar = 1f;
+    private float spawnIntervar = 2f;
+
+    public float sideSpawnMinZ;
+    public float sideSpawnMaxZ;
+    public float sideSpawnX;
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("SpawnRandomAnimal", startDelay, spawnIntervar);
+        InvokeRepeating("SpamAnimalLeftAnimal", 5, 4);
+        InvokeRepeating("SpawnRightAnimal", 3, 2);
     }
 
     // Update is called once per frame
@@ -33,14 +42,25 @@ public class SpamManager : MonoBehaviour
         Instantiate(animalPrefabs[animalIndex], spawnPos,
             animalPrefabs[animalIndex].transform.rotation);
     }
-    void SpamAnimalLeftRight()
+    void SpamAnimalLeftAnimal()
     {
-        int animalIndexZ = Random.Range(0, animalPrefabs.Length);
-        Vector3 spawnPosZ = new(Random.Range(-spawnRangeX, spawnRangeX), 0, 2);
+        int animalIndex = Random.Range(0, animalPrefabs.Length);
+        Vector3 spawnPos = new Vector3(-sideSpawnX, 0, Random.Range(sideSpawnMinZ,
+        sideSpawnMaxZ));
+        Vector3 rotation = new Vector3(0, 90, 0);
+        Instantiate(animalPrefabs[animalIndex], spawnPos,
+        Quaternion.Euler(rotation));
 
-        Instantiate(animalPrefabs[animalIndexZ], spawnPosZ,
-            animalPrefabs[animalIndexZ].transform.rotation);
 
+    }
+    void SpawnRightAnimal()
+    {
+        int animalIndex = Random.Range(0, animalPrefabs.Length);
+        Vector3 spawnPos = new Vector3(sideSpawnX, 0, Random.Range(sideSpawnMinZ,
+        sideSpawnMaxZ));
+        Vector3 rotation = new Vector3(0, -90, 0);
+        Instantiate(animalPrefabs[animalIndex], spawnPos,
+        Quaternion.Euler(rotation));
 
     }
 }

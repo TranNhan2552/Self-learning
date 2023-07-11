@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float horizontallInput;
-    private float veticalInput;
+    private float verticalInput;
     private float speed = 20.0f;
     private float xRange = 22;
     private float zRangeTop = 1;
     private float zRangeBot = -7;
+
+    public Transform projecttitleSpawnPoint;
 
     public GameObject projectPrefabs;
 
@@ -42,12 +44,12 @@ public class PlayerController : MonoBehaviour
         horizontallInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.right * horizontallInput * Time.deltaTime * speed);
 
-        veticalInput = Input.GetAxis("Vertical");
-        transform.Translate(Vector3.forward * veticalInput * Time.deltaTime * speed);
+        verticalInput = Input.GetAxis("Vertical");
+        transform.Translate(Vector3.forward * verticalInput * Time.deltaTime * speed);
 
         if(Input.GetKeyDown(KeyCode.Space)) {
 
-            Instantiate(projectPrefabs, transform.position, projectPrefabs.transform.rotation);   
+            Instantiate(projectPrefabs, projecttitleSpawnPoint.position, projectPrefabs.transform.rotation);   
         }
 
 
